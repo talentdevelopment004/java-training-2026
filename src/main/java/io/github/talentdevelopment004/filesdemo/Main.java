@@ -2,6 +2,7 @@ package io.github.talentdevelopment004.filesdemo;
 
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,28 +11,46 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+
+import static java.nio.file.Files.readAllLines;
 
 public class Main {
     private static Logger logger = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) throws IOException {
 //        externalizedConfigurations();
 
-        customLoggingToFile();
-        Path filePath = Paths.get("log.txt");
-        List<String> lines = Files.readAllLines(filePath);
-        lines.forEach(line->{
-            String[] split = line.split("\\|");
-            LocalDateTime date = LocalDateTime.parse(split[0].trim());
-            String method = split[1].trim();
-            String level = split[2].trim();
-            String message = split[3].trim();
-            Data data = new Data(date,method,level,message);
-            System.out.println(data.getMessage());
+
+         Path largeFile = Paths.get("log.txt");
+         var lines = Files.lines(largeFile);
+         lines.forEach(System.out::println);
+
+        Properties prop = new Properties();
+        FileInputStream fis = new FileInputStream("/src/main/resources/ATM_en.properties");
+        prop.load(fis);
+        System.out.println(prop.getProperty("welcome1"));
+        System.out.println(prop.getProperty("welcome2", "Test"));//line n1
+        System.out.println(prop.getProperty("welcome3"));
 
 
-        });
+//        customLoggingToFile();
+//        Path filePath = Paths.get("log.txt");
+//        List<String> lines = readAllLines(filePath);
+//        lines.forEach(line -> {System.out.println(line);});
+//        lines.forEach(System.out::println);
+//        lines.forEach(line->{
+//            String[] split = line.split("\\|");
+//            LocalDateTime date = LocalDateTime.parse(split[0].trim());
+//            String method = split[1].trim();
+//            String level = split[2].trim();
+//            String message = split[3].trim();
+//            Data data = new Data(date,method,level,message);
+//            System.out.println(data.getMessage());
+//
+//
+//        });
 
 
     }
@@ -103,7 +122,7 @@ public class Main {
 
     private static void externalizedConfigurations() throws IOException {
         Path filePath = Paths.get("config.txt");
-        List<String> lines = Files.readAllLines(filePath);
+        List<String> lines = readAllLines(filePath);
         Config config = new Config();
         config.setUsername(lines.get(0).trim());
         config.setPassword(lines.get(1).trim());

@@ -108,8 +108,9 @@ public class Main {
     }
 
     private static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
+//        "com.mysql.cj.jdbc.Driver"//
         // load className
-        Class.forName("com.mysql.cj.jdbc.Driver");
+//        n1
         // register the driver
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 
