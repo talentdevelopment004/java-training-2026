@@ -1,0 +1,3 @@
+2026-02-24T07:35:55 | customLoggingToFile | INFO | This my info message
+2026-02-24T07:35:55 | customLoggingToFile | SEVERE | This my error message
+2026-02-24T07:35:55 | customLoggingToFile | WARNING | This my warning message

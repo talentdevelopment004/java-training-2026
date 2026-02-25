@@ -1,0 +1,5 @@
+root
+generic
+localhost
+3306
+training
